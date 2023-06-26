@@ -1,6 +1,6 @@
 # LLynx Agents
 
-LLynx agent is currently in alpha. The purpose of this repo is for the team to share some of the agents we have been building that work on top of LLynx. The repo will grow with time and we hope the community can use this as a guide to build their own agents that can plug into LLynx.
+LLynx agent is currently in alpha. The purpose of this repo is for the team to share some of the agents we have been building that work on top of [LLynx api](https://docs.llynx.ai). The repo will grow with time and we hope the community can use this as a guide to build their own agents that can plug into LLynx.
 
 </br>
 
