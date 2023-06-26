@@ -49,7 +49,7 @@ In addition to the LLynx API we utilize a tool database to match an Action to a 
 
 # OAuth
 
-For many APIs OAuth is required to authenticate users into their tools and for the application to be able to make requests on behalf of those users. We provide example OAuth documentation for `Google`, `Microsoft`, and `Zoom`.
+For many APIs OAuth is required to authenticate users into their tools and for the application to be able to make requests on behalf of those users. You can check the OAuth documentation for [Google](https://developers.google.com/identity/protocols/oauth2), [Microsoft](https://learn.microsoft.com/en-us/azure/active-directory/develop/v2-oauth2-auth-code-flow), and [Zoom](https://developers.zoom.us/docs/integrations/oauth/) to setup your own up.
 
 </br>
 
