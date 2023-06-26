@@ -107,4 +107,3 @@ const { failedSteps, actions, finalResponse } = await agent.run();
 ```
 
 - `askModel`: Some actions do not require an api request and the agent will instead ask the llm model execute the action.
--
