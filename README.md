@@ -1,12 +1,12 @@
 # Llynx Agents
 
-Llynx agent is currently in alpha. The purpose of this repo is for the team to share some of the agents we have been building. The repo will grow with time and we hope the community can use this as a guide to build their own agents that can plug into Llynx.
+LLynx agent is currently in alpha. The purpose of this repo is for the team to share some of the agents we have been building that work on top of LLynx. The repo will grow with time and we hope the community can use this as a guide to build their own agents that can plug into LLynx.
 
 </br>
 
 # How to Run
 
-Agents are meant to be ran in a backend Node environment. you can create a simple script to test it out after properly setting up the dependencies.
+Agents are meant to be run in a backend Node environment. You can create a script to test them out after properly setting up the required dependencies.
 
 ```ts
 const agent = new DelegatorAgent({
@@ -23,7 +23,7 @@ const { failedSteps, actions, finalResponse } = await agent.run();
 
 # Agent Types
 
-We took a lot of inspiration from Langchain on how we create agents and some of classes will look familiar to anyone who used Langchain before.
+We took inspiration from Langchain on how to create agents and some of the classes will look familiar to anyone who used Langchain before.
 
 ## Base Agents
 
@@ -41,15 +41,15 @@ Execution agents are the agents that actually execute an action. They are built 
 
 </br>
 
-# Vector DB
+# Tool Database
 
-In addition to the Llynx api we utilize Pinecone for our vector database. This allows us to match an Action to a specific api and schema. In the future we may return our matching in the Llynx api itself but for the time being a seperate db will need to be created or you can use an alternative to determining how you want to select which api to use based on what the api returns. Our vector database of choice is Pinecone.
+In addition to the LLynx API we utilize a tool database to match an Action to a specific API and schema. This database contains an extensible number of tools and these tools can be mapped to individual users. Our database of choice is Pinecone, but there are several others to choose from including Weaviate, Chroma, and more. 
 
 </br>
 
-# Oauth
+# OAuth
 
-For a lot of APIs oauth is needed to be able to make requests on behalf of the users. To use the currently built agents you will need to enable Oauth for `Google`, `Microsoft`, and `Zoom`.
+For many APIs OAuth is required to authenticate users into their tools and for the application to be able to make requests on behalf of those users. We provide example OAuth documentation for `Google`, `Microsoft`, and `Zoom`.
 
 </br>
 
