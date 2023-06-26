@@ -10,7 +10,7 @@ Agents are meant to be run in a backend Node environment. You can create a scrip
 
 ```ts
 const agent = new DelegatorAgent({
-  actions: body.action as any,
+  actions: body.action,
   tokens: {
     googleRefreshToken,
     microsoftRefreshToken,
