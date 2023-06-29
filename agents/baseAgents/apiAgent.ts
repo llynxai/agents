@@ -93,7 +93,7 @@ export class ApiAgent extends ActionAgent {
       const res = await chain.call({
         action: this.action.action,
         context: this.context,
-        requestBodySchema: this.action.schemaSchema,
+        requestBodySchema: this.action.schema,
         service: this.action.finalTool,
       });
 

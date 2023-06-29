@@ -147,7 +147,7 @@ export class OutlookAgent extends ApiAgent {
     let modelOutput = "";
 
     try {
-      let requestBodySchema = this.action.schemaSchema.replace(/\\/g, "");
+      let requestBodySchema = this.action.schema.replace(/\\/g, "");
       if (
         this.agentContext &&
         (this.action.schemaMethod === "PUT" ||

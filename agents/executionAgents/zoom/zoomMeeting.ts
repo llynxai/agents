@@ -75,7 +75,7 @@ export class ZoomMeetingAgent extends ApiAgent {
     let modelOutput = "";
 
     try {
-      let requestBodySchema = this.action.schemaSchema.replace(/\\/g, "");
+      let requestBodySchema = this.action.schema.replace(/\\/g, "");
       if (
         this.agentContext?.pineConeMatch.metadata["tool"] === this.action.finalTool &&
         (this.action.schemaMethod === "PUT" || this.action.schemaMethod === "DELETE")

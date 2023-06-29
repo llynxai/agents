@@ -11,7 +11,7 @@ export type AgentAction = {
   schemaEndpoint?: string;
   schemaMethod?: RequestMethod;
   schemaSubtool?: string;
-  schemaSchema?: string;
+  schema?: string;
 };
 
 export interface AgentOptions {
