@@ -112,7 +112,7 @@ export class OutlookAgent extends ApiAgent {
     }
 
     if (subTool === "createEvent" && json && !json.subject) {
-      json.subject = this.action.description;
+      json.subject = this.action.action;
     }
 
     if (json && !json.body) {
@@ -158,7 +158,7 @@ export class OutlookAgent extends ApiAgent {
       }
 
       const res = await chain.call({
-        action: this.action.description,
+        action: this.action.action,
         context: this.context,
         requestBodySchema,
         service: this.action.finalTool,
@@ -226,7 +226,7 @@ export class OutlookAgent extends ApiAgent {
       console.log(err.response?.data ?? err.message);
       return {
         failure: {
-          action: this.action.description,
+          action: this.action.action,
           err: {
             message: err.message,
             statusCode: err.statusCode,

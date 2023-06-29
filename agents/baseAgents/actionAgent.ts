@@ -14,8 +14,8 @@ import { defaultSystemPrompt } from "../../utils/defaultPrompts";
  */
 export class ActionAgent {
   action: AgentAction;
-  model?: BaseLanguageModel;
-  modelName?: "gpt-3.5-turbo" | "gpt-4";
+  model: BaseLanguageModel;
+  modelName: "gpt-3.5-turbo" | "gpt-4" = "gpt-3.5-turbo";
   context: string;
   systemPrompt?: string;
 

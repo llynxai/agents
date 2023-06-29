@@ -8,9 +8,38 @@ LLynx agent is currently in alpha. The purpose of this repo is for the team to s
 
 Agents are meant to be run in a backend Node environment. You can create a script to test them out after properly setting up the required dependencies.
 
+First install the agents package from npm.
+
+```bash
+yarn add @llynxai/agents
+```
+
+or
+
+```bash
+npm install @llynxai/agents
+```
+
+Agents are meant to be ran in a backend Node environment. you can create a simple script to test it out after properly setting up the dependencies.
+
 ```ts
+import { DelegatorAgent } from "@llynxai/agents";
+import axios from "axios";
+
+// Call the llynx api to get an action plan
+const res = await axios.post(
+  "https://api.llynx.ai",
+  { query: "Schedule a meeting with Ed tomorrow at noon." },
+  {
+    headers: {
+      "x-api-key": "YOUR_API_KEY",
+    },
+  }
+);
+
+// Execute action plan Using the DelegatorAgent
 const agent = new DelegatorAgent({
-  actions: body.action,
+  actions: res.actions,
   tokens: {
     googleRefreshToken,
     microsoftRefreshToken,
@@ -18,6 +47,7 @@ const agent = new DelegatorAgent({
   },
 });
 
+// Check the outputs after the run is complete
 const { failedSteps, actions, finalResponse } = await agent.run();
 ```
 
@@ -43,7 +73,7 @@ Execution agents are the agents that actually execute an action. They are built 
 
 # Tool Database
 
-In addition to the LLynx API we utilize a tool database to match an Action to a specific API and schema. This database contains an extensible number of tools and these tools can be mapped to individual users. Our database of choice is Pinecone, but there are several others to choose from including Weaviate, Chroma, and more. 
+In addition to the LLynx API we utilize a tool database to match an Action to a specific API and schema. This database contains an extensible number of tools and these tools can be mapped to individual users. Our database of choice is Pinecone, but there are several others to choose from including Weaviate, Chroma, and more.
 
 </br>
 

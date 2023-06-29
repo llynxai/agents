@@ -12,7 +12,7 @@ import { ZoomAgentOptions } from "./types";
  * Agent Class For executing Zoom Meeting Tasks
  */
 export class ZoomMeetingAgent extends ApiAgent {
-  tokens: Tokens;
+  tokens: Tokens | undefined;
 
   constructor({
     action,
@@ -50,21 +50,23 @@ export class ZoomMeetingAgent extends ApiAgent {
       searchParams.sendNotifications = json?.attendees?.length > 0 || subTool === "delete";
     }
 
-    if (subTool === "insert" && !json.summary) {
+    if (subTool === "insert" && !json?.summary) {
       json.summary = "Calendar invite created by AI Agent";
     }
 
-    const { access_token } = await refreshZoomToken(refreshToken);
-    const res = await axios(url, {
-      data: method === "POST" || method === "PUT" ? json : undefined,
-      headers: {
-        Authorization: `Bearer ${access_token}`,
-      },
-      method,
-      params: { ...searchParams },
-    });
+    if (refreshToken) {
+      const { access_token } = await refreshZoomToken(refreshToken);
+      const res = await axios(url, {
+        data: method === "POST" || method === "PUT" ? json : undefined,
+        headers: {
+          Authorization: `Bearer ${access_token}`,
+        },
+        method,
+        params: { ...searchParams },
+      });
 
-    return res.data;
+      return res.data;
+    }
   }
 
   async run() {
@@ -82,7 +84,7 @@ export class ZoomMeetingAgent extends ApiAgent {
       }
 
       const res = await chain.call({
-        action: this.action.description,
+        action: this.action.action,
         context: this.context,
         requestBodySchema,
         service: this.action.finalTool,
@@ -123,7 +125,7 @@ export class ZoomMeetingAgent extends ApiAgent {
     } catch (err) {
       return {
         failure: {
-          action: this.action.description,
+          action: this.action.action,
           err,
           finalRequestBody: requestBody,
           modelOutput,
