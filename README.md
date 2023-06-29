@@ -56,34 +56,39 @@ You will also need to generate an OpenAI API key.
 
 2. Agents are meant to be run in a backend Node environment. You can create a script to test them out after properly setting up the required dependencies.
 
-   ```js
-   // agent-script.js
+```js
+// agent-script.js
 
-   import { DelegatorAgent } from "@llynxai/agents";
-   import axios from "axios";
+import { DelegatorAgent } from "@llynxai/agents";
+import axios from "axios";
 
-   // Call the llynx api to get an action plan
-   const res = await axios.post(
-     "https://api.llynx.ai",
-     { query: "Schedule a meeting with Ed tomorrow at noon." },
-     {
-       headers: {
-         "x-api-key": "YOUR_LLYNX_API_KEY",
-       },
-     }
-   );
+const main = async () => {
+  // Call the llynx api to get an action plan
+  const res = await axios.post(
+    "https://api.llynx.ai",
+    { query: "Schedule a meeting with Ed tomorrow at noon." },
+    {
+      headers: {
+        "x-api-key": "YOUR_LLYNX_API_KEY",
+      },
+    }
+  );
 
-   // Execute action plan Using the DelegatorAgent
-   const agent = new DelegatorAgent({
-     actions: res.actions,
-     tokens: {
-       googleRefreshToken: "STORED_REFRESH_TOKEN_FROM_GOOGLE",
-     },
-   });
+  // Execute action plan Using the DelegatorAgent
+  const agent = new DelegatorAgent({
+    actions: res.actions,
+    tokens: {
+      googleRefreshToken: "STORED_REFRESH_TOKEN_FROM_GOOGLE",
+    },
+  });
 
-   // Check the outputs after the run is complete
-   const { failedSteps, actions, finalResponse } = await agent.run();
-   ```
+  // Check the outputs after the run is complete
+  const { failedSteps, actions, finalResponse } = await agent.run();
+};
+
+// run main function
+main();
+```
 
 3. Before running the script make sure you have these environment variables set for node in `process.env`.
 
