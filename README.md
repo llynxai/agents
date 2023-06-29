@@ -74,7 +74,7 @@ You will also need to generate an OpenAI API key.
        }
      );
 
-     // Execute action plan Using the DelegatorAgent
+     // Execute action plan using the DelegatorAgent
      const agent = new DelegatorAgent({
        actions: res.actions,
        tokens: {
