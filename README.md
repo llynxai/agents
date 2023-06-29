@@ -65,7 +65,7 @@ You will also need to generate an OpenAI API key.
    const main = async () => {
      // Call the llynx api to get an action plan
      const res = await axios.post(
-       "https://api.llynx.ai",
+       "https://api.llynx.ai/actions/quickstart",
        { query: "Schedule a meeting with Ed tomorrow at noon." },
        {
          headers: {
