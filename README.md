@@ -10,7 +10,7 @@ Agents are meant to be run in a backend Node environment. You can create a scrip
 
 </br>
 
-## Setup Agent for Google Calendar
+### Setup Agent for Google Calendar
 
 1. [Go to Google Cloud Console and setup a project](https://developers.google.com/maps/get-started#create-project)
 2. [Enabled Google Calendar API](https://support.google.com/googleapi/answer/6158841?hl=en)
@@ -19,7 +19,7 @@ Agents are meant to be run in a backend Node environment. You can create a scrip
 
 </br>
 
-## Tokens
+### Tokens
 
 Once you have OAuth setup, you will need to generate a refreshToken that can be enable by the agent to do things on your behalf.
 This [server side example](https://cloud.google.com/nodejs/docs/reference/google-auth-library/latest) is one way to do this without having to build an entire frontend.
@@ -29,7 +29,7 @@ This [server side example](https://cloud.google.com/nodejs/docs/reference/google
 </br>
 </br>
 
-## OpenAI API key
+### OpenAI API key
 
 You will also need to generate an OpenAI API key.
 
