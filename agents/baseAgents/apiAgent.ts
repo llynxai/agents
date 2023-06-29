@@ -11,7 +11,6 @@ import {
 
 import { AgentResponse, PreviousStepContext } from "../../api/types";
 import { AgentOptions } from "../../types";
-import { queryPineCone } from "../../utils/queryPineCone";
 import { ActionAgent } from "./actionAgent";
 
 /**
@@ -91,50 +90,27 @@ export class ApiAgent extends ActionAgent {
 
     const chain = new LLMChain({ llm: this.model, prompt: this.chatPrompt });
     if (this.action.finalTool) {
-      const matches = await queryPineCone({
-        namespace: this.action.finalTool,
-        queryString: this.action.action,
-        topK: 15,
-      });
-
-      const match = matches.reduce((acc, curr) => {
-        if (acc && curr.score > acc.score) {
-          return curr;
-        }
-        return acc;
-      });
-
-      let requestBodySchema = match.metadata["schema"];
-      if (
-        this.agentContext?.pineConeMatch.metadata["tool"] === this.action.finalTool &&
-        (match.metadata["request_method"] === "PUT" ||
-          match.metadata["request_method"] === "DELETE")
-      ) {
-        requestBodySchema = this.agentContext.finalRequestBody;
-      }
-
       const res = await chain.call({
         action: this.action.action,
         context: this.context,
-        requestBodySchema,
+        requestBodySchema: this.action.schemaSchema,
         service: this.action.finalTool,
       });
 
       requestBody = JSON.parse(res.text);
 
-      const resp: Record<string, any> = await axios(match.metadata["endpoint"], {
+      const resp: Record<string, any> = await axios(this.action.schemaEndpoint, {
         data:
-          match.metadata["request_method"] === "PUT" || match.metadata["request_method"] === "POST"
+          this.action.schemaMethod === "PUT" || this.action.schemaMethod === "POST"
             ? requestBody
             : undefined,
-        method: match.metadata["method"],
-        params: match.metadata["request_method"] === "GET" ? requestBody : undefined,
+        method: this.action.schemaMethod,
+        params: this.action.schemaMethod === "GET" ? requestBody : undefined,
       });
 
       this.agentContext = {
         context: "",
         finalRequestBody: JSON.stringify({ ...requestBody, ...resp.data }),
-        pineConeMatch: match,
       } satisfies PreviousStepContext;
     } else {
       const response = await this.askModel(this.action.action);

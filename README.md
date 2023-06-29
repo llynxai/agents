@@ -151,12 +151,9 @@ For many APIs OAuth is required to authenticate users into their tools and for t
 
 The following environment variables would need to be set if you plan to use these agents out of the box.
 
-```
+```js
 GOOGLE_CLIENT_ID;
 GOOGLE_CLIENT_SECRET;
-PINECONE_API_KEY;
-PINECONE_INDEX;
-PINECONE_ENVIRONMENT;
 ZOOM_CLIENT_SECRET;
 ZOOM_CLIENT_ID;
 MICROSOFT_CLIENT_ID;
