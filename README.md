@@ -12,7 +12,7 @@ Agents are meant to be run in a backend Node environment. You can create a scrip
 
 ### Setup Agent for Google Calendar
 
-1. [Go to Google Cloud Console and setup a project](https://developers.google.com/maps/get-started#create-project)
+1. [Go to Google Cloud Console and setup a project](https://console.cloud.google.com/welcome)
 2. [Enabled Google Calendar API](https://support.google.com/googleapi/answer/6158841?hl=en)
 3. [Create OAuth 2.0 credential](https://developers.google.com/workspace/guides/create-credentials)
 4. Store the `Client Id` and `Client Secret` some where secure.
