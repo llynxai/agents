@@ -46,12 +46,14 @@ You will also need to generate an OpenAI API key.
 
    ```bash
    yarn add @llynxai/agents
+   yarn add axios # install for use in the the script below
    ```
 
    or
 
    ```bash
    npm install @llynxai/agents
+   npm install axios
    ```
 
 2. Agents are meant to be run in a backend Node environment. You can create a script to test them out after properly setting up the required dependencies.
