@@ -4,52 +4,111 @@ LLynx agent is currently in alpha. The purpose of this repo is for the team to s
 
 </br>
 
-# How to Run
+# Initial Setup
 
 Agents are meant to be run in a backend Node environment. You can create a script to test them out after properly setting up the required dependencies.
 
-First install the agents package from npm.
+</br>
 
-```bash
-yarn add @llynxai/agents
-```
+## Setup Agent for Google Calendar
 
-or
+1. [Go to Google Cloud Console and setup a project](https://developers.google.com/maps/get-started#create-project)
+2. [Enabled Google Calendar API](https://support.google.com/googleapi/answer/6158841?hl=en)
+3. [Create OAuth 2.0 credential](https://developers.google.com/workspace/guides/create-credentials)
+4. Store the `Client Id` and `Client Secret` some where secure.
 
-```bash
-npm install @llynxai/agents
-```
+</br>
 
-Agents are meant to be ran in a backend Node environment. you can create a simple script to test it out after properly setting up the dependencies.
+## Tokens
 
-```ts
-import { DelegatorAgent } from "@llynxai/agents";
-import axios from "axios";
+Once you have OAuth setup, you will need to generate a refreshToken that can be enable by the agent to do things on your behalf.
+This [server side example](https://cloud.google.com/nodejs/docs/reference/google-auth-library/latest) is one way to do this without having to build an entire frontend.
 
-// Call the llynx api to get an action plan
-const res = await axios.post(
-  "https://api.llynx.ai",
-  { query: "Schedule a meeting with Ed tomorrow at noon." },
-  {
-    headers: {
-      "x-api-key": "YOUR_API_KEY",
-    },
-  }
-);
+`NOTE: What you want to store is the refresh token not the access token.`
 
-// Execute action plan Using the DelegatorAgent
-const agent = new DelegatorAgent({
-  actions: res.actions,
-  tokens: {
-    googleRefreshToken,
-    microsoftRefreshToken,
-    zoomRefreshToken,
-  },
-});
+</br>
+</br>
 
-// Check the outputs after the run is complete
-const { failedSteps, actions, finalResponse } = await agent.run();
-```
+## OpenAI API key
+
+You will also need to generate an OpenAI API key.
+
+1. Go to OpenAI's Platform website at platform.openai.com and sign in with an OpenAI account.
+2. Click your profile icon at the top-right corner of the page and select "View API Keys."
+3. Click "Create New Secret Key" to generate a new API key.
+
+</br>
+</br>
+
+# Running an Agent
+
+1. Install the agents package from npm.
+
+   ```bash
+   yarn add @llynxai/agents
+   ```
+
+   or
+
+   ```bash
+   npm install @llynxai/agents
+   ```
+
+2. Agents are meant to be ran in a backend Node environment. you can create a simple script to test it out after properly setting up the dependencies.
+
+   ```js
+   // agent-script.js
+
+   import { DelegatorAgent } from "@llynxai/agents";
+   import axios from "axios";
+
+   // Call the llynx api to get an action plan
+   const res = await axios.post(
+     "https://api.llynx.ai",
+     { query: "Schedule a meeting with Ed tomorrow at noon." },
+     {
+       headers: {
+         "x-api-key": "YOUR_LLYNX_API_KEY",
+       },
+     }
+   );
+
+   // Execute action plan Using the DelegatorAgent
+   const agent = new DelegatorAgent({
+     actions: res.actions,
+     tokens: {
+       googleRefreshToken: "STORED_REFRESH_TOKEN_FROM_GOOGLE",
+     },
+   });
+
+   // Check the outputs after the run is complete
+   const { failedSteps, actions, finalResponse } = await agent.run();
+   ```
+
+3. Before running the script make sure you have these environment variables set for node in `process.env`.
+
+   ```js
+   GOOGLE_CLIENT_ID;
+   GOOGLE_CLIENT_SECRET;
+   OPENAI_API_KEY;
+   ```
+
+   They can be set by calling this snippet in the terminal before launching the script:
+
+   ```bash
+   export GOOGLE_CLIENT_ID="YOUR_GOOGLE_CLIENT_ID"
+   export GOOGLE_CLIENT_SECRET="YOUR_GOOGLE_CLIENT_SECRET"
+   export OPENAI_API_KEY="YOUR_OPENAI_API_KEY"
+   ```
+
+4. Run the script and check the results in your Calendar
+
+   ```bash
+   node agent-script.js
+   ```
+
+   </br>
+   </br>
 
 # Agent Types
 
@@ -87,7 +146,7 @@ For many APIs OAuth is required to authenticate users into their tools and for t
 
 The following environment variables would need to be set if you plan to use these agents out of the box.
 
-```js
+```
 GOOGLE_CLIENT_ID;
 GOOGLE_CLIENT_SECRET;
 PINECONE_API_KEY;
