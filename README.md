@@ -54,7 +54,7 @@ You will also need to generate an OpenAI API key.
    npm install @llynxai/agents
    ```
 
-2. Agents are meant to be ran in a backend Node environment. you can create a simple script to test it out after properly setting up the dependencies.
+2. Agents are meant to be run in a backend Node environment. You can create a script to test them out after properly setting up the required dependencies.
 
    ```js
    // agent-script.js
