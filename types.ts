@@ -5,12 +5,12 @@ import { PreviousStepContext } from "./api/types";
 export type AgentAction = {
   index: string;
   action: string;
-  finalTool?: "Google Calendar" | "Zoom" | "Gmail";
+  final_tool?: "Google Calendar" | "Zoom" | "Gmail";
   type: Classifications;
-  schemaDescription?: string;
-  schemaEndpoint?: string;
-  schemaMethod?: RequestMethod;
-  schemaSubtool?: string;
+  schema_description?: string;
+  schema_endpoint?: string;
+  schema_method?: RequestMethod;
+  schema_subtool?: string;
   schema?: string;
 };
 

@@ -113,12 +113,12 @@ Create QUERY_STRING from ACTION description. If ACTION is searching for files in
     const chain = new LLMChain({ llm: this.model, prompt: this.chatPrompt });
 
     try {
-      let requestBodySchema = this.action.schemaSchema.replace(/\\/g, "");
+      let requestBodySchema = this.action.schema.replace(/\\/g, "");
       if (
         this.agentContext &&
-        (this.action.schemaMethod === "PUT" ||
-          this.action.schemaMethod === "PATCH" ||
-          this.action.schemaMethod === "DELETE")
+        (this.action.schema_method === "PUT" ||
+          this.action.schema_method === "PATCH" ||
+          this.action.schema_method === "DELETE")
       ) {
         requestBodySchema = this.agentContext.finalRequestBody;
       }
@@ -127,7 +127,7 @@ Create QUERY_STRING from ACTION description. If ACTION is searching for files in
         action: this.action.action,
         context: this.context,
         requestBodySchema,
-        service: this.action.finalTool,
+        service: this.action.final_tool,
       });
 
       modelOutput = res.text;
@@ -137,17 +137,17 @@ Create QUERY_STRING from ACTION description. If ACTION is searching for files in
         const requests = [];
         for (const body of requestBody) {
           requests.push(
-            this.request(this.action.schemaEndpoint, {
+            this.request(this.action.schema_endpoint, {
               id: body.id,
-              method: this.action.schemaMethod,
+              method: this.action.schema_method,
               requestBody:
-                this.action.schemaMethod === "PUT" ||
-                this.action.schemaMethod === "PATCH" ||
-                this.action.schemaMethod === "DELETE"
+                this.action.schema_method === "PUT" ||
+                this.action.schema_method === "PATCH" ||
+                this.action.schema_method === "DELETE"
                   ? body
                   : undefined,
-              searchParams: this.action.schemaMethod === "GET" ? { body } : undefined,
-              subTool: this.action.schemaSubtool,
+              searchParams: this.action.schema_method === "GET" ? { body } : undefined,
+              subTool: this.action.schema_subtool,
               tokens: this.tokens,
             })
           );
@@ -158,17 +158,17 @@ Create QUERY_STRING from ACTION description. If ACTION is searching for files in
           finalRequestBody: JSON.stringify(responses),
         } satisfies PreviousStepContext;
       } else {
-        const response = await this.request(this.action.schemaEndpoint, {
+        const response = await this.request(this.action.schema_endpoint, {
           id: requestBody.id,
-          method: this.action.schemaMethod,
+          method: this.action.schema_method,
           requestBody:
-            this.action.schemaMethod === "PUT" ||
-            this.action.schemaMethod === "PATCH" ||
-            this.action.schemaMethod === "POST"
+            this.action.schema_method === "PUT" ||
+            this.action.schema_method === "PATCH" ||
+            this.action.schema_method === "POST"
               ? requestBody
               : undefined,
-          searchParams: this.action.schemaMethod === "GET" ? requestBody : undefined,
-          subTool: this.action.schemaSubtool,
+          searchParams: this.action.schema_method === "GET" ? requestBody : undefined,
+          subTool: this.action.schema_subtool,
           tokens: this.tokens,
         });
 

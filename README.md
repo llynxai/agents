@@ -76,7 +76,7 @@ You will also need to generate an OpenAI API key.
 
      // Execute action plan using the DelegatorAgent
      const agent = new DelegatorAgent({
-       actions: res.actions,
+       actions: res.data.actions,
        tokens: {
          googleRefreshToken: "STORED_REFRESH_TOKEN_FROM_GOOGLE",
        },

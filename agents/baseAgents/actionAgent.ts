@@ -39,7 +39,7 @@ export class ActionAgent {
     await chain.call({
       action: this.action.action,
       context: this.context,
-      service: this.action.finalTool,
+      service: this.action.final_tool,
     });
 
     return undefined;

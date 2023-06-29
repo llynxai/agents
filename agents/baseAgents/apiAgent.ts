@@ -89,23 +89,23 @@ export class ApiAgent extends ActionAgent {
     let requestBody: Record<string, any>;
 
     const chain = new LLMChain({ llm: this.model, prompt: this.chatPrompt });
-    if (this.action.finalTool) {
+    if (this.action.final_tool) {
       const res = await chain.call({
         action: this.action.action,
         context: this.context,
         requestBodySchema: this.action.schema,
-        service: this.action.finalTool,
+        service: this.action.final_tool,
       });
 
       requestBody = JSON.parse(res.text);
 
-      const resp: Record<string, any> = await axios(this.action.schemaEndpoint, {
+      const resp: Record<string, any> = await axios(this.action.schema_endpoint, {
         data:
-          this.action.schemaMethod === "PUT" || this.action.schemaMethod === "POST"
+          this.action.schema_method === "PUT" || this.action.schema_method === "POST"
             ? requestBody
             : undefined,
-        method: this.action.schemaMethod,
-        params: this.action.schemaMethod === "GET" ? requestBody : undefined,
+        method: this.action.schema_method,
+        params: this.action.schema_method === "GET" ? requestBody : undefined,
       });
 
       this.agentContext = {

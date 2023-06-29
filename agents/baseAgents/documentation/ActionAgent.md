@@ -23,13 +23,13 @@ await agent.run();
   type AgentAction = {
     index: string;
     action: string;
-    finalTool?: "Google Calendar" | "Zoom" | "Gmail";
+    final_tool?: "Google Calendar" | "Zoom" | "Gmail";
     type: Classifications;
     schemaDescription?: string;
-    schemaEndpoint?: string;
-    schemaMethod?: RequestMethod;
-    schemaSubtool?: string;
-    schemaSchema?: string;
+    schema_endpoint?: string;
+    schema_method?: RequestMethod;
+    schema_subtool?: string;
+    schema?: string;
   };
   ```
 
@@ -54,7 +54,7 @@ async run(): Promise<string | undefined | AgentResponse> {
     await chain.call({
       action: this.action.description,
       context: this.context,
-      service: this.action.finalTool,
+      service: this.action.final_tool,
     });
 
     return undefined;

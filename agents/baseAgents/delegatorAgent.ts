@@ -100,14 +100,14 @@ export class DelegatorAgent {
     const failedSteps = [];
     const successFulSteps = {};
     for (const action of this.actions) {
-      const isSupported = AgentNetWork[action.finalTool] !== undefined;
+      const isSupported = AgentNetWork[action.final_tool] !== undefined;
       if (action.type === "INFORMATION ANALYSIS") {
         const response = await this.askModel(action.action);
         this.context += `AI_RESPONSE is ${response}`;
-      } else if (action.finalTool && isSupported) {
-        const agent = new AgentNetWork[action.finalTool]({
+      } else if (action.final_tool && isSupported) {
+        const agent = new AgentNetWork[action.final_tool]({
           action,
-          agentContext: this.agentContexts[action.finalTool],
+          agentContext: this.agentContexts[action.final_tool],
           context: this.context,
           model: this.model,
           modelName: this.modelName,
@@ -117,7 +117,7 @@ export class DelegatorAgent {
         const { response, failure } = await agent.run();
 
         if (response) {
-          this.agentContexts[action.finalTool] = response;
+          this.agentContexts[action.final_tool] = response;
           successFulSteps[action.action] = isValidJsonString(response.finalRequestBody)
             ? JSON.parse(response.finalRequestBody)
             : response.finalRequestBody;
