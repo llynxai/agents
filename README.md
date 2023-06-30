@@ -157,7 +157,11 @@ You will also need to generate an OpenAI API key.
 
 </br>
 
-6. Before running the script make sure you have Open ai environment variable set.
+7. Anywhere you see `YOUR_LLYNX_API_KEY` in `agents-script.js`, replace that value with your LLynx api key.
+
+</br>
+
+8. Before running the script make sure you have Open ai environment variable set.
 
    ```js
    OPENAI_API_KEY;
@@ -171,7 +175,7 @@ You will also need to generate an OpenAI API key.
 
 </br>
 
-7. Run the script and check the results in your calendar
+9. Run the script and check the results in your calendar
 
    ```bash
    node agent-script.js
