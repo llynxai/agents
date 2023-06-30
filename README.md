@@ -1,12 +1,17 @@
 # LLynx Agents
 
-LLynx agent is currently in alpha. The purpose of this repo is for the team to share some of the agents we have been building that work on top of [LLynx api](https://docs.llynx.ai). The repo will grow with time and we hope the community can use this as a guide to build their own agents that can plug into LLynx.
+LLynx is currently in alpha. The purpose of this repo is for the team to share an example framework for building agents that work within [LLynx](https://docs.llynx.ai). This repo will grow over time and we hope the community can use this as a guide to build other agents that can plug into LLynx. 
 
-## Requirments:
+LLynx utilizes our proprietary LLynx model for planning orchestration, OpenAI embeddings and 3.5-turbo for schema completion in order to make API calls successful. In the future, we plan to train a version of LLynx to fulfill schema completion and remove reliance on 3.5-turbo. 
+
+## Quick start Requirements:
+In order to showcase LLynx working end-to-end as an application, we provide this prepackaged code to run LLynx on Google Calendar. To get set up, follow these step by step instructions.
 
 - Node 18 or later
-- OpenAI api key
-- Google OAuth setup.
+- OpenAI API key
+- Google OAuth authentication. <a href="https://agents.llynx.ai/agents" target="_blank">Log in here with the email you registered to get a LLynx API key for.</a>
+
+To avoid the complexity of setting up Google OAuth yourself, we are offering a hosted solution via our application that you can authenticate into. Given this is an early alpha, the app isn't verified with Google so you will see a warning page when you try and sign in. Please ignore this for now, and proceed to authenticate your Google account. 
 
 Install from npm:
 
@@ -22,31 +27,6 @@ npm install @llynxai/agents
 
 </br>
 
-# Initial Setup
-
-Agents are meant to be run in a backend Node environment. You can create a script to test them out after properly setting up the required dependencies.
-
-</br>
-
-### Setup OAuth access with Agent for Google Calendar
-
-1. [Go to Google Cloud Console and setup a project](https://console.cloud.google.com/welcome)
-2. [Enabled Google Calendar API](https://support.google.com/googleapi/answer/6158841?hl=en)
-3. [Create OAuth 2.0 credential](https://developers.google.com/workspace/guides/create-credentials)
-4. Store the `Client Id` and `Client Secret` some where secure.
-
-</br>
-
-### Tokens
-
-Once you have OAuth setup, you will need to generate a refreshToken that can be enable by the agent to do things on your behalf.
-This [server side example](https://cloud.google.com/nodejs/docs/reference/google-auth-library/latest) is one way to do this without having to build an entire frontend.
-
-`NOTE: What you want to store is the refresh token not the access token.`
-
-</br>
-</br>
-
 ### OpenAI API key
 
 You will also need to generate an OpenAI API key.
@@ -60,8 +40,8 @@ You will also need to generate an OpenAI API key.
 
 # Quick Start Guide
 
-Note: You can clone the <a href="https://github.com/llynxai/quickstart" target="_blank">Quickstart Repo</a>
-and follow the instructions there to avoid a lot of copy and pasting.
+Note: Clone this repo <a href="https://github.com/llynxai/quickstart" target="_blank">Quickstart Repo</a>
+and follow the instructions there to avoid a lot of copy and pasting. Alternatively, follow the instructions below.
 
 </br>
 
@@ -75,7 +55,7 @@ and follow the instructions there to avoid a lot of copy and pasting.
 
 </br>
 
-2. Go to the quickstart folder, open the package.json file, and add this snippet to it and save.
+2. Go to the quickstart folder, open the package.json file, add this snippet to it, and save.
 
    ```json
    {
@@ -128,6 +108,7 @@ and follow the instructions there to avoid a lot of copy and pasting.
    import PromptSync from "prompt-sync";
 
    const prompt = PromptSync({ sigint: true });
+   const api_key = "YOUR_LLYNX_API_KEY"
 
    const main = async () => {
      const query = prompt("What would you like for me to schedule for you? ");
@@ -141,7 +122,7 @@ and follow the instructions there to avoid a lot of copy and pasting.
        { query },
        {
          headers: {
-           "x-api-key": "YOUR_LLYNX_API_KEY",
+           "x-api-key": api_key,
          },
        }
      );
@@ -149,7 +130,7 @@ and follow the instructions there to avoid a lot of copy and pasting.
      console.log("Getting agent permissions...");
      const tokenRes = await axios.get("https://api.llynx.ai/tokens", {
        headers: {
-         "x-api-key": "YOUR_LLYNX_API_KEY",
+         "x-api-key": api_key,
        },
      });
 
@@ -161,7 +142,7 @@ and follow the instructions there to avoid a lot of copy and pasting.
        tokens: {
          googleRefreshToken,
        },
-       apiKey: "YOUR_LLYNX_API_KEY",
+       apiKey: api_key,
      });
 
      // Check the outputs after the run is complete
@@ -175,17 +156,12 @@ and follow the instructions there to avoid a lot of copy and pasting.
 
 </br>
 
-7. Anywhere you see `YOUR_LLYNX_API_KEY` in `agents-script.js`, replace that value with your LLynx api key.
+7. Replace `YOUR_LLYNX_API_KEY` in `agents-script.js`, with your LLynx API key. If you don't have one, please submit a request <a href="https://docs.llynx.ai/docs/get-api-key" target="_blank">here</a>
 
 </br>
 
-8. Before running the script make sure you have Open ai environment variable set.
-
-   ```js
-   OPENAI_API_KEY;
-   ```
-
-   You can set it quickly by running this command in the terminal.
+8. Before running the script make sure you have OpenAI environment variable set.
+   You can set it by running this command in the terminal. Make sure you replace "YOUR_OPENAI_API_KEY" with the key you receive from OpenAI.
 
    ```bash
    export OPENAI_API_KEY="YOUR_OPENAI_API_KEY"
@@ -193,7 +169,7 @@ and follow the instructions there to avoid a lot of copy and pasting.
 
 </br>
 
-9. Run the script and check the results in your calendar
+9. Run the script in terminal, enter in your command, and check the results in your authenticated calendar.
 
    ```bash
    node agent-script.js
@@ -204,6 +180,7 @@ and follow the instructions there to avoid a lot of copy and pasting.
 
 # Agent Types
 
+We hope the community will utilize this framework to build agents of all types. You can map any agent type to a <a href="https://docs.llynx.ai/docs/tool-categories" target="_blank">tool category</a> output from LLynx and store endpoints for those tools in a vector database of your choosing (e.g., Pinecone, Weaviate, ChromaDB) (see below for more information).  
 We took inspiration from Langchain on how to create agents and some of the classes will look familiar to anyone who used Langchain before.
 
 ## Base Agents
@@ -230,13 +207,13 @@ In addition to the LLynx API we utilize a tool database to match an Action to a 
 
 # OAuth
 
-For many APIs OAuth is required to authenticate users into their tools and for the application to be able to make requests on behalf of those users. You can check the OAuth documentation for [Google](https://developers.google.com/identity/protocols/oauth2), [Microsoft](https://learn.microsoft.com/en-us/azure/active-directory/develop/v2-oauth2-auth-code-flow), and [Zoom](https://developers.zoom.us/docs/integrations/oauth/) to setup your own up.
+If you wish to use LLynx in your own environment and applications, you will need to set up OAuth for each tool you wish to connect to LLynx. For many APIs OAuth is required to authenticate users into their tools and for the application to be able to make requests on behalf of those users. You can check the OAuth documentation for [Google](https://developers.google.com/identity/protocols/oauth2), [Microsoft](https://learn.microsoft.com/en-us/azure/active-directory/develop/v2-oauth2-auth-code-flow), and [Zoom](https://developers.zoom.us/docs/integrations/oauth/) to setup your own up.
 
 </br>
 
 # Environment Variables
 
-The following environment variables would need to be set if you plan to use these agents out of the box.
+The following environment variables would need to be set if you plan to use these pre-built agents (Google Calendar, Gmail, Microsoft Outlook, and Zoom) out of the box.
 
 ```js
 GOOGLE_CLIENT_ID;
@@ -253,4 +230,4 @@ OPENAI_API_KEY;
 # Credits
 
 - [LangChain JS](https://js.langchain.com/docs/getting-started/guide-llm)
-- [OpenAi](https://github.com/openai/openai-node)
+- [OpenAI](https://github.com/openai/openai-node)
