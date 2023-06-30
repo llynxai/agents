@@ -88,8 +88,9 @@ and follow the instructions there to avoid a lot of copy and pasting.
        "@types/node": "^20.3.2"
      },
      "dependencies": {
-       "@llynxai/agents": "^0.1.12",
-       "axios": "1.4.0"
+       "@llynxai/agents": "^0.1.14",
+       "axios": "1.4.0",
+       "prompt-sync": "^4.2.0"
      }
    }
    ```
@@ -124,25 +125,31 @@ and follow the instructions there to avoid a lot of copy and pasting.
    import { DelegatorAgent } from "@llynxai/agents";
    import axios from "axios";
    import fs from "fs/promises";
+   import PromptSync from "prompt-sync";
+
+   const prompt = PromptSync({ sigint: true });
 
    const main = async () => {
+     const query = prompt("What would you like for me to schedule for you? ");
+
+     console.log("I will be happy to do that for you!\n");
+
      // Call the llynx api to get an action plan
      console.log("Getting action plan...");
      const res = await axios.post(
        "https://api.llynx.ai/actions/quickstart",
-       { query: "Schedule a meeting with Ed tomorrow at noon." },
+       { query },
        {
          headers: {
-           "x-api-key": "YOUR_LLYNX_API_KEY",
+           "x-api-key": "OkiPGfAeKK88cqZlSOzbg6HhZgmlw61eam3aq6P1",
          },
        }
      );
 
-     // get your refresh tokens
      console.log("Getting agent permissions...");
      const tokenRes = await axios.get("https://api.llynx.ai/tokens", {
        headers: {
-         "x-api-key": "YOUR_LLYNX_API_KEY",
+         "x-api-key": "OkiPGfAeKK88cqZlSOzbg6HhZgmlw61eam3aq6P1",
        },
      });
 
@@ -151,10 +158,10 @@ and follow the instructions there to avoid a lot of copy and pasting.
      // Execute action plan using the DelegatorAgent
      const agent = new DelegatorAgent({
        actions: res.data.actions,
-       apiKey: "YOUR_LLYNX_API_KEY",
        tokens: {
          googleRefreshToken,
        },
+       apiKey: "OkiPGfAeKK88cqZlSOzbg6HhZgmlw61eam3aq6P1",
      });
 
      // Check the outputs after the run is complete
