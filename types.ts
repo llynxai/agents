@@ -20,6 +20,7 @@ export interface AgentOptions {
   modelName?: "gpt-3.5-turbo" | "gpt-4";
   context?: string;
   tokens?: Tokens;
+  apiKey?: string;
   agentContext?: PreviousStepContext;
 }
 

@@ -77,7 +77,7 @@ You will also need to generate an OpenAI API key.
        "@types/node": "^20.3.2"
      },
      "dependencies": {
-       "@llynxai/agents": "^0.1.7",
+       "@llynxai/agents": "^0.1.8",
        "axios": "1.4.0"
      }
    }
@@ -138,6 +138,7 @@ You will also need to generate an OpenAI API key.
      // Execute action plan using the DelegatorAgent
      const agent = new DelegatorAgent({
        actions: res.data.actions,
+       apiKey: "YOUR_LLYNX_API_KEY",
        tokens: {
          googleRefreshToken,
        },

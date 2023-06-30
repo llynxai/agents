@@ -20,6 +20,7 @@ export type DelegatorAgentOptions = {
   modelName?: "gpt-3.5-turbo" | "gpt-4";
   context?: string;
   tokens?: Tokens;
+  apiKey: string;
   timeZone?: string;
 };
 
@@ -33,6 +34,7 @@ export class DelegatorAgent {
   modelName?: "gpt-3.5-turbo" | "gpt-4";
   context?: string;
   tokens?: Tokens;
+  apiKey: string;
   agentContexts: Record<string, PreviousStepContext>;
   timeZone?: string;
 
@@ -42,9 +44,11 @@ export class DelegatorAgent {
     modelName = "gpt-3.5-turbo",
     model,
     tokens,
+    apiKey,
     timeZone = "American/Los_Angeles",
   }: DelegatorAgentOptions) {
     this.actions = actions;
+    this.apiKey = apiKey;
     this.model = model ?? new ChatOpenAI({ modelName, temperature: 0 });
     this.timeZone = timeZone;
     this.context = `
@@ -108,6 +112,7 @@ export class DelegatorAgent {
         const agent = new AgentNetWork[action.final_tool]({
           action,
           agentContext: this.agentContexts[action.final_tool],
+          apiKey: this.apiKey,
           context: this.context,
           model: this.model,
           modelName: this.modelName,

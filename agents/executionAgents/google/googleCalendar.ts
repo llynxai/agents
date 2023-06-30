@@ -16,6 +16,7 @@ import { GoogleAgentOptions } from "./types";
  */
 export class GoogleCalendarAgent extends ApiAgent {
   tokens: Tokens;
+  apiKey: string;
 
   constructor({
     action,
@@ -23,9 +24,11 @@ export class GoogleCalendarAgent extends ApiAgent {
     context = "",
     modelName = "gpt-3.5-turbo",
     tokens,
+    apiKey,
   }: GoogleAgentOptions) {
     super({ action, agentContext, context, modelName });
     this.tokens = tokens;
+    this.apiKey = apiKey;
     const requestId = v4();
     this.agentContext = agentContext;
     this.context = `
@@ -98,7 +101,7 @@ export class GoogleCalendarAgent extends ApiAgent {
       json.summary = "Calendar invite created by AI Agent";
     }
 
-    const { access_token } = await refreshGoogleToken(refreshToken);
+    const { access_token } = await refreshGoogleToken(refreshToken, this.apiKey);
     const res = await axios(url, {
       data: method === "POST" || method === "PUT" ? json : undefined,
       method,

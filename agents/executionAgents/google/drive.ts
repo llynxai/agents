@@ -14,6 +14,7 @@ import { GoogleAgentOptions } from "./types";
  */
 export class GoogleDriveAgent extends ApiAgent {
   tokens: Tokens;
+  apiKey: string;
 
   constructor({
     action,
@@ -21,9 +22,11 @@ export class GoogleDriveAgent extends ApiAgent {
     context = "",
     modelName = "gpt-3.5-turbo",
     tokens,
+    apiKey,
   }: GoogleAgentOptions) {
     super({ action, agentContext, context, modelName });
     this.tokens = tokens;
+    this.apiKey = apiKey;
     this.agentContext = agentContext;
     this.context = `
 ${context} 
@@ -83,7 +86,7 @@ Create QUERY_STRING from ACTION description. If ACTION is searching for files in
   ) {
     const url = this.replaceIdWithValue(initialUrl, requestBody?.id);
 
-    const { access_token } = await refreshGoogleToken(refreshToken);
+    const { access_token } = await refreshGoogleToken(refreshToken, this.apiKey);
 
     try {
       const res = await axios(url, {

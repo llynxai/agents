@@ -14,6 +14,7 @@ import { GmailApiRequest, GoogleAgentOptions } from "./types";
  */
 export class GmailAgent extends ApiAgent {
   tokens: Tokens;
+  apiKey: string;
 
   constructor({
     action,
@@ -21,9 +22,11 @@ export class GmailAgent extends ApiAgent {
     context = "",
     modelName = "gpt-3.5-turbo",
     tokens,
+    apiKey,
   }: GoogleAgentOptions) {
     super({ action, agentContext, context, modelName });
     this.tokens = tokens;
+    this.apiKey = apiKey;
     this.agentContext = agentContext;
     this.context = `
     If userId is not a property in REQUEST BODY then its value should be me.
@@ -113,7 +116,7 @@ export class GmailAgent extends ApiAgent {
   ) {
     const url = this.replaceIdWithValue(initialUrl, userId);
 
-    const { access_token } = await refreshGoogleToken(refreshToken);
+    const { access_token } = await refreshGoogleToken(refreshToken, this.apiKey);
 
     try {
       const res = await axios(url, {
@@ -135,7 +138,7 @@ export class GmailAgent extends ApiAgent {
     let modelOutput = "";
     let requestBody: Record<string, any> = {};
 
-    const authUser = await getUserInfo(this.tokens.googleRefreshToken);
+    const authUser = await getUserInfo(this.tokens.googleRefreshToken, this.apiKey);
 
     this.context += `Your Name is ${authUser.name}.`;
 
