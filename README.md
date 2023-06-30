@@ -71,20 +71,19 @@ You will also need to generate an OpenAI API key.
        { query: "Schedule a meeting with Ed tomorrow at noon." },
        {
          headers: {
-           "x-api-key": "rASXu39yIya5kiLvO88BD2qNmDRtUZyJ7fUSY3sp",
+           "x-api-key": "YOUR_LLYNX_API_KEY",
          },
        }
      );
 
+     // get your refresh tokens
      const tokenRes = await axios.get("https://api.llynx.ai/tokens", {
        headers: {
-         "x-api-key": "rASXu39yIya5kiLvO88BD2qNmDRtUZyJ7fUSY3sp",
+         "x-api-key": "YOUR_LLYNX_API_KEY",
        },
      });
 
      const googleRefreshToken = tokenRes.data.tokens.googleRefreshToken;
-
-     console.log(tokenRes.data.tokens);
 
      // Execute action plan using the DelegatorAgent
      const agent = new DelegatorAgent({
