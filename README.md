@@ -10,7 +10,7 @@ Agents are meant to be run in a backend Node environment. You can create a scrip
 
 </br>
 
-### Setup Agent for Google Calendar
+### Setup OAuth access with Agent for Google Calendar
 
 1. [Go to Google Cloud Console and setup a project](https://console.cloud.google.com/welcome)
 2. [Enabled Google Calendar API](https://support.google.com/googleapi/answer/6158841?hl=en)
@@ -59,10 +59,10 @@ You will also need to generate an OpenAI API key.
 2. Agents are meant to be run in a backend Node environment. You can create a script to test them out after properly setting up the required dependencies.
 
    ```js
-   // agent-script.js
-
+   import "dotenv/config";
    import { DelegatorAgent } from "@llynxai/agents";
    import axios from "axios";
+   import fs from "fs/promises";
 
    const main = async () => {
      // Call the llynx api to get an action plan
@@ -71,21 +71,32 @@ You will also need to generate an OpenAI API key.
        { query: "Schedule a meeting with Ed tomorrow at noon." },
        {
          headers: {
-           "x-api-key": "YOUR_LLYNX_API_KEY",
+           "x-api-key": "rASXu39yIya5kiLvO88BD2qNmDRtUZyJ7fUSY3sp",
          },
        }
      );
+
+     const tokenRes = await axios.get("https://api.llynx.ai/tokens", {
+       headers: {
+         "x-api-key": "rASXu39yIya5kiLvO88BD2qNmDRtUZyJ7fUSY3sp",
+       },
+     });
+
+     const googleRefreshToken = tokenRes.data.tokens.googleRefreshToken;
+
+     console.log(tokenRes.data.tokens);
 
      // Execute action plan using the DelegatorAgent
      const agent = new DelegatorAgent({
        actions: res.data.actions,
        tokens: {
-         googleRefreshToken: "STORED_REFRESH_TOKEN_FROM_GOOGLE",
+         googleRefreshToken,
        },
      });
 
      // Check the outputs after the run is complete
      const { failedSteps, actions, finalResponse } = await agent.run();
+     await fs.writeFile("./output.json", JSON.stringify({ failedSteps, actions, finalResponse }));
    };
 
    // run main function
