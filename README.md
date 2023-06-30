@@ -59,7 +59,6 @@ You will also need to generate an OpenAI API key.
 2. Agents are meant to be run in a backend Node environment. You can create a script to test them out after properly setting up the required dependencies.
 
    ```js
-   import "dotenv/config";
    import { DelegatorAgent } from "@llynxai/agents";
    import axios from "axios";
    import fs from "fs/promises";
