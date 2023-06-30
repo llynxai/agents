@@ -60,7 +60,7 @@ You will also need to generate an OpenAI API key.
 
 # Quick Start Guide
 
-Note: You can clone the <a href="https://github.com/llynxai/agents" target="_blank">Quickstart Repo</a>
+Note: You can clone the <a href="https://github.com/llynxai/quickstart" target="_blank">Quickstart Repo</a>
 and follow the instructions there to avoid a lot of copy and pasting.
 
 </br>
