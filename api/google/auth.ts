@@ -2,19 +2,15 @@ import axios from "axios";
 import { oauth2_v2 } from "googleapis";
 
 export const refreshGoogleToken = async (refreshToken: string, apiKey: string) => {
-  const res = await axios.post(
-    "https://api.llynx.ai/google/accessToken",
-    {},
-    {
-      headers: {
-        "x-api-key": apiKey,
-      },
-      params: {
-        app: "google",
-        refreshToken,
-      },
-    }
-  );
+  const res = await axios.get("https://api.llynx.ai/google/accessToken", {
+    headers: {
+      "x-api-key": apiKey,
+    },
+    params: {
+      app: "google",
+      refreshToken,
+    },
+  });
   return res.data as { access_token: string; refresh_token: string };
 };
 

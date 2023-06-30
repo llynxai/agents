@@ -103,12 +103,16 @@ export class DelegatorAgent {
   }> {
     const failedSteps = [];
     const successFulSteps = {};
+    let counter = 1;
     for (const action of this.actions) {
       const isSupported = AgentNetWork[action.final_tool] !== undefined;
+      console.log(`Step ${counter}: ${action.action}`);
       if (action.type === "INFORMATION ANALYSIS") {
+        console.log(" - Analyzing with LLM");
         const response = await this.askModel(action.action);
         this.context += `AI_RESPONSE is ${response}`;
       } else if (action.final_tool && isSupported) {
+        console.log(`Sending ${action.schema_method} to ${action.schema_endpoint}\n`);
         const agent = new AgentNetWork[action.final_tool]({
           action,
           agentContext: this.agentContexts[action.final_tool],
@@ -131,8 +135,17 @@ export class DelegatorAgent {
           failedSteps.push(failure);
         }
       } else {
-        console.log("Tool not supported yet");
+        if (action.type === "USER INPUT") {
+          console.log("Skipping step: User input has not been implemented for agents yet.\n");
+        } else if (action.operation !== "NONE" && action.final_tool) {
+          console.log(
+            `An agent has not been created to support ${
+              action.final_tool ?? action.tool_category
+            }\n`
+          );
+        }
       }
+      counter++;
     }
 
     const finalResponse = isValidJson(successFulSteps[this.actions.at(-1).action])

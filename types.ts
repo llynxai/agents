@@ -2,10 +2,14 @@ import { BaseLanguageModel } from "langchain/base_language";
 
 import { PreviousStepContext } from "./api/types";
 
+export type CRUD = "READ" | "CREATE" | "UPDATE" | "DELETE" | "NONE";
+
 export type AgentAction = {
   index: string;
   action: string;
   final_tool?: "Google Calendar" | "Zoom" | "Gmail";
+  tool_category: string;
+  operation: CRUD;
   type: Classifications;
   schema_description?: string;
   schema_endpoint?: string;

@@ -77,7 +77,7 @@ You will also need to generate an OpenAI API key.
        "@types/node": "^20.3.2"
      },
      "dependencies": {
-       "@llynxai/agents": "^0.1.8",
+       "@llynxai/agents": "^0.1.12",
        "axios": "1.4.0"
      }
    }
@@ -116,6 +116,7 @@ You will also need to generate an OpenAI API key.
 
    const main = async () => {
      // Call the llynx api to get an action plan
+     console.log("Getting action plan...");
      const res = await axios.post(
        "https://api.llynx.ai/actions/quickstart",
        { query: "Schedule a meeting with Ed tomorrow at noon." },
@@ -127,6 +128,7 @@ You will also need to generate an OpenAI API key.
      );
 
      // get your refresh tokens
+     console.log("Getting agent permissions...");
      const tokenRes = await axios.get("https://api.llynx.ai/tokens", {
        headers: {
          "x-api-key": "YOUR_LLYNX_API_KEY",
