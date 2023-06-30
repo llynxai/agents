@@ -107,7 +107,7 @@ You will also need to generate an OpenAI API key.
 
 </br>
 
-5. Open `agent-script.js`, paste the snippet below in it, and save the file.
+5. Open `agent-script.js`, paste the snippet below into it, and save the file.
 
    ```js
    import { DelegatorAgent } from "@llynxai/agents";
