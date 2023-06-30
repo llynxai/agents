@@ -106,16 +106,12 @@ You will also need to generate an OpenAI API key.
 3. Before running the script make sure you have these environment variables set for node in `process.env`.
 
    ```js
-   GOOGLE_CLIENT_ID;
-   GOOGLE_CLIENT_SECRET;
    OPENAI_API_KEY;
    ```
 
    They can be set by calling this snippet in the terminal before launching the script:
 
    ```bash
-   export GOOGLE_CLIENT_ID="YOUR_GOOGLE_CLIENT_ID"
-   export GOOGLE_CLIENT_SECRET="YOUR_GOOGLE_CLIENT_SECRET"
    export OPENAI_API_KEY="YOUR_OPENAI_API_KEY"
    ```
 
