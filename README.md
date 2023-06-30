@@ -71,6 +71,8 @@ You will also need to generate an OpenAI API key.
    }
    ```
 
+</br>
+
 3. Run the following command in the quickstart folder to install the packages.
 
    ```bash
@@ -83,11 +85,15 @@ You will also need to generate an OpenAI API key.
    npm install
    ```
 
+</br>
+
 4. In the terminal run the following command.
 
    ```bash
      touch agent-script.js
    ```
+
+</br>
 
 5. Open `agent-script.js`, paste the snippet below in it, and save the file.
 
@@ -134,6 +140,8 @@ You will also need to generate an OpenAI API key.
    main();
    ```
 
+</br>
+
 6. Before running the script make sure you have Open ai environment variable set.
 
    ```js
@@ -145,6 +153,8 @@ You will also need to generate an OpenAI API key.
    ```bash
    export OPENAI_API_KEY="YOUR_OPENAI_API_KEY"
    ```
+
+</br>
 
 7. Run the script and check the results in your calendar
 
