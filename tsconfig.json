@@ -1,17 +1,18 @@
 {
   "compilerOptions": {
-    "target": "ESNext",
     "allowJs": false,
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
     "forceConsistentCasingInFileNames": true,
-    "module": "ESNext",
     "moduleResolution": "Node",
     "resolveJsonModule": true,
     "isolatedModules": true,
     "types": ["node"],
+    "outDir": "dist",
+    "target": "es5",
     "declaration": true,
-    "outDir": "dist"
+    "module": "commonjs",
+    "lib": ["es2021", "dom"]
   },
   "include": ["**/*.ts"],
   "exclude": ["node_modules", "dist"]

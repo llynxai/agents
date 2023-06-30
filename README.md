@@ -40,23 +40,56 @@ You will also need to generate an OpenAI API key.
 </br>
 </br>
 
-# Running an Agent
+# Quick Start Guide
 
-1. Install the agents package from npm.
+1. Run the following commands in the terminal to get started.
 
    ```bash
-   yarn add @llynxai/agents
-   yarn add axios # install for use in the the script below
+   mkdir quickstart
+   cd quickstart
+   touch package.json
+   ```
+
+</br>
+
+2. Go to the quickstart folder, open the package.json file, and add this snippet to it and save.
+
+   ```json
+   {
+     "name": "llynx-quickstart",
+     "version": "0.0.0",
+     "type": "module",
+     "private": true,
+     "scripts": {},
+     "devDependencies": {
+       "@types/node": "^20.3.2"
+     },
+     "dependencies": {
+       "@llynxai/agents": "^0.1.6",
+       "axios": "1.4.0"
+     }
+   }
+   ```
+
+3. Run the following command in the quickstart folder to install the packages.
+
+   ```bash
+   yarn install
    ```
 
    or
 
    ```bash
-   npm install @llynxai/agents
-   npm install axios
+   npm install
    ```
 
-2. Agents are meant to be run in a backend Node environment. You can create a script to test them out after properly setting up the required dependencies.
+4. In the terminal run the following command.
+
+   ```bash
+     touch agent-script.js
+   ```
+
+5. Open `agent-script.js`, paste the snippet below in it, and save the file.
 
    ```js
    import { DelegatorAgent } from "@llynxai/agents";
@@ -101,19 +134,19 @@ You will also need to generate an OpenAI API key.
    main();
    ```
 
-3. Before running the script make sure you have these environment variables set for node in `process.env`.
+6. Before running the script make sure you have Open ai environment variable set.
 
    ```js
    OPENAI_API_KEY;
    ```
 
-   They can be set by calling this snippet in the terminal before launching the script:
+   You can set it quickly by running this command in the terminal.
 
    ```bash
    export OPENAI_API_KEY="YOUR_OPENAI_API_KEY"
    ```
 
-4. Run the script and check the results in your Calendar
+7. Run the script and check the results in your calendar
 
    ```bash
    node agent-script.js
