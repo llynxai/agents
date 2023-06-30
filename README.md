@@ -141,7 +141,7 @@ and follow the instructions there to avoid a lot of copy and pasting.
        { query },
        {
          headers: {
-           "x-api-key": "OkiPGfAeKK88cqZlSOzbg6HhZgmlw61eam3aq6P1",
+           "x-api-key": "YOUR_LLYNX_API_KEY",
          },
        }
      );
@@ -149,7 +149,7 @@ and follow the instructions there to avoid a lot of copy and pasting.
      console.log("Getting agent permissions...");
      const tokenRes = await axios.get("https://api.llynx.ai/tokens", {
        headers: {
-         "x-api-key": "OkiPGfAeKK88cqZlSOzbg6HhZgmlw61eam3aq6P1",
+         "x-api-key": "YOUR_LLYNX_API_KEY",
        },
      });
 
@@ -161,7 +161,7 @@ and follow the instructions there to avoid a lot of copy and pasting.
        tokens: {
          googleRefreshToken,
        },
-       apiKey: "OkiPGfAeKK88cqZlSOzbg6HhZgmlw61eam3aq6P1",
+       apiKey: "YOUR_LLYNX_API_KEY",
      });
 
      // Check the outputs after the run is complete
