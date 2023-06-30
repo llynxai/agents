@@ -9,7 +9,7 @@ In order to showcase LLynx working end-to-end as an application, we provide this
 
 - Node 18 or later
 - OpenAI API key
-- Google OAuth authentication
+- Google OAuth authentication. <a href="https://agents.llynx.ai/agents" target="_blank">Log in here with the email you registered to get a LLynx API key for.</a>
 
 To avoid the complexity of setting up Google OAuth yourself, we are offering a hosted solution via our application that you can authenticate into. Given this is an early alpha, the app isn't verified with Google so you will see a warning page when you try and sign in. Please ignore this for now, and proceed to authenticate your Google account. 
 
