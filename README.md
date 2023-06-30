@@ -65,7 +65,7 @@ You will also need to generate an OpenAI API key.
        "@types/node": "^20.3.2"
      },
      "dependencies": {
-       "@llynxai/agents": "^0.1.6",
+       "@llynxai/agents": "^0.1.7",
        "axios": "1.4.0"
      }
    }
