@@ -108,7 +108,7 @@ export class OutlookAgent extends ApiAgent {
     const url = this.replaceIdWithValue(initialUrl, id);
 
     if (subTool === "updateEvent" && json && !json?.subject) {
-      json.subject = "Calendar invite created by AI Agent";
+      json.subject = "Calendar invite created by LLynx AI Agent";
     }
 
     if (subTool === "createEvent" && json && !json.subject) {

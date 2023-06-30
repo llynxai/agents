@@ -2,6 +2,12 @@
 
 LLynx agent is currently in alpha. The purpose of this repo is for the team to share some of the agents we have been building that work on top of [LLynx api](https://docs.llynx.ai). The repo will grow with time and we hope the community can use this as a guide to build their own agents that can plug into LLynx.
 
+## Requirments:
+
+- Node 18 or later
+- OpenAI api key
+- Google OAuth setup.
+
 Install from npm:
 
 ```bash
@@ -53,6 +59,11 @@ You will also need to generate an OpenAI API key.
 </br>
 
 # Quick Start Guide
+
+```
+Note: You can clone the <a href="https://github.com/llynxai/agents" target="_blank">Quickstart Repo</a>
+and follow the instructions there to avoid a lot of copy and pasting.
+```
 
 1. Run the following commands in the terminal to get started.
 

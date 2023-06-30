@@ -51,7 +51,7 @@ export class ZoomMeetingAgent extends ApiAgent {
     }
 
     if (subTool === "insert" && !json?.summary) {
-      json.summary = "Calendar invite created by AI Agent";
+      json.summary = "Calendar invite created by LLynx AI Agent";
     }
 
     if (refreshToken) {

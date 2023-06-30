@@ -98,7 +98,7 @@ export class GoogleCalendarAgent extends ApiAgent {
     }
 
     if (subTool === "insert" && !json.summary) {
-      json.summary = "Calendar invite created by AI Agent";
+      json.summary = "Calendar invite created by LLynx AI Agent";
     }
 
     const { access_token } = await refreshGoogleToken(refreshToken, this.apiKey);
