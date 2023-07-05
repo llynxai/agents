@@ -89,8 +89,18 @@ export class GoogleCalendarAgent extends ApiAgent {
     const hasAddonConference = json && json.conferenceData?.entryPoints?.every((item) => item.uri);
     const hasMeet = json && json.conferenceData?.createRequest?.requestId !== undefined;
 
-    if (json?.attendees) {
-      json.attendees = json.attendees?.filter((item) => isValidEmail(item.email));
+    if (json?.attendees.length) {
+      const attendees = [];
+      for (const attendee of json.attendees) {
+        if (typeof attendee === "string") {
+          attendees.push({ email: attendee });
+        } else {
+          attendees.push(attendee);
+        }
+      }
+      json.attendees = attendees.filter((item: calendar_v3.Schema$EventAttendee) =>
+        isValidEmail((item as calendar_v3.Schema$EventAttendee).email)
+      );
     }
 
     if (json && !hasAddonConference && !hasMeet) {
