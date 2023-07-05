@@ -100,6 +100,7 @@ export class DelegatorAgent {
     failedSteps: FailedContext[];
     actions: AgentAction[];
     finalResponse: Record<string, string | number | boolean>;
+    contexts: Record<string, PreviousStepContext>;
   }> {
     const failedSteps = [];
     const successFulSteps = {};
@@ -151,6 +152,6 @@ export class DelegatorAgent {
     const finalResponse = isValidJson(successFulSteps[this.actions.at(-1).action])
       ? JSON.stringify(successFulSteps[this.actions.at(-1).action])
       : successFulSteps[this.actions.at(-1).action];
-    return { actions: this.actions, failedSteps, finalResponse };
+    return { actions: this.actions, contexts: this.agentContexts, failedSteps, finalResponse };
   }
 }
