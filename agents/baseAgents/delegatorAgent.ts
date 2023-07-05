@@ -125,7 +125,6 @@ export class DelegatorAgent {
         });
 
         const { response, failure } = await agent.run();
-
         if (response) {
           this.agentContexts[action.final_tool] = response;
           successFulSteps[action.action] = isValidJsonString(response.finalRequestBody)
