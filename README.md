@@ -68,7 +68,7 @@ and follow the instructions there to avoid a lot of copy and pasting. Alternativ
        "@types/node": "^20.3.2"
      },
      "dependencies": {
-       "@llynxai/agents": "^0.1.14",
+       "@llynxai/agents": "^0.1.19",
        "axios": "1.4.0",
        "prompt-sync": "^4.2.0"
      }
